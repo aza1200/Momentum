@@ -14,8 +14,10 @@ function saveToDos(){
 function deleteToDo(event){
     //click 은 button 에서 일어났고 button 은 li 에 포함되어있다.
     const li = event.target.parentElement;
-    
+    toDos = toDos.filter( toDo => toDo.id !== parseInt(li.id) );
+    console.log(toDos)
     li.remove();
+    saveToDos();
 }
 
 function paintToDo(newTodo){
@@ -49,16 +51,12 @@ function handleToDoSubmit(event){
 
 toDoForm.addEventListener("submit",handleToDoSubmit);
 
-function sayHello(item){
-    console.log(item);
-}
 
 const savedToDos = localStorage.getItem(TODOS_KEY);
-//console.log(savedToDos);
+
 if(savedToDos !== null) {
     const parsedToDos = JSON.parse(savedToDos);
     toDos = parsedToDos;
     parsedToDos.forEach(paintToDo);
-    //parsedToDos.forEach((item)=> console.log("Hello "+ item));
 
 }
